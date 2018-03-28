@@ -4,58 +4,24 @@
 <head>
     <meta charset="utf-8">
     <title>People</title>
-    <style>
-        .ridic {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 100px;
-            background: black;
-            color: white;
-            width: 100%;
-
-            margin: auto;
-
-
-        }
-
-        .ridic-button {
-            border: solid black 2px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            margin: auto;
-
-
-        }
-
-        #giph-form {
-
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .somthing {
-            border: solid black 2px;
-            font-family: Arial, Helvetica, sans-serif;
-            background: black;
-            color: white;
-        }
-
-        .input {
-            border: solid black 2px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-    </style>
 </head>
 
 
-
+<html>
 
 <body>
-    <div class="buttons">
+    <div id="buttons"></div>
 
+<form>
+    
+    
+    <div class="form-group">
+        <input type="text" id="person-input">
     </div>
-    <form class="user-form">
-        <input type="text" placeholder="type here" id="userinput">
-        <input class="submit-button" type="submit" value="Add new button">
-    </form>
+    <input id="addgif" type="submit" value="get Ridicugif" class="btn btn-primary">
+    
+</form>    
+
 
 
 
@@ -63,86 +29,9 @@
     </div>
 
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var names = ["jerry Springer", "Martin", "Oprah", "Tom Cruise", "Arnold Schwarzenegger"]
-            function displayButtons() {
-                $(".buttons").empty()
-                for (var i = 0; i < names.length; i++) {
-                    var savedButton = $("<button>")
-                    savedButton.addClass("ridic-buttton")
-                    savedButton.attr("data-name", names[i])
-                    savedButton.text(names[i])
-                    $(".buttons").append(savedButton)
-                }
-            }
-            function createButton() {
-                var newButton = $("#userinput").val().trim()
-                console.log(newButton);
-                names.push(newButton);
-                displayButtons();
-            }
-            // Event listener for all button elements
-
-
-            $("button").on("click", function () {
-                // In this case, the "this" keyword refers to the button that was clicked
-                var person = $(this).attr("data-person");
-
-                // Constructing a URL to search Giphy for the name of the person who said the quote
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                    person + "&api_key=YmTc3yjWuPWIQiFSoImO8z5eGPbnIMGd&limit=10";
-
-                // Performing our AJAX GET request
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                })
-                    // After the data comes back from the API
-                    .then(function (response) {
-                        // Storing an array of results in the results variable
-                        var results = response.data;
-
-                        // Looping over every result item
-                        for (var i = 0; i < results.length; i++) {
-
-                            // Only taking action if the photo has an appropriate rating
-                            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-                                // Creating a div with the class "item"
-                                var gifDiv = $("<div class='item'>");
-
-                                // Storing the result item's rating
-                                var rating = results[i].rating;
-
-                                // Creating a paragraph tag with the result item's rating
-                                var p = $("").text("" + rating);
-
-                                // Creating an image tag
-                                var personImage = $("<img>");
-
-                                // Giving the image tag an src attribute of a proprty pulled off the
-                                // result item
-                                personImage.attr("src", results[i].images.fixed_height.url);
-
-                                // Appending the paragraph and personImage we created to the "gifDiv" div we created
-                                gifDiv.append(p);
-                                gifDiv.append(personImage);
-
-                                // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-
-                            }
-                        }
-                    });
-
-            });// end button handler
-            displayButtons();
-            $(document).on("click", ".submit-button", createButton)
-        })//end docu ready
-    </script>
-    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="giph.js"></script>
 </body>
-
 </html>
+      
+    
